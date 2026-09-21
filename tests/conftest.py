@@ -11,7 +11,7 @@ import inspect
 import os
 import tempfile
 from pathlib import Path
-from unittest.mock import MagicMock, patch
+from unittest.mock import MagicMock
 
 import toml
 
@@ -140,10 +140,7 @@ def run_train_model_and_load_toml(gui_module, kwargs: dict) -> dict:
     with tempfile.TemporaryDirectory() as tmpdir:
         kwargs = dict(kwargs, output_dir=tmpdir, output_name="testout")
         mock_executor(gui_module)
-        # train_model aborts if accelerate is missing from PATH; pin a fake
-        # path so the suite does not depend on the host environment.
-        with patch.object(gui_module, "get_executable_path", return_value="accelerate"):
-            gui_module.train_model(**kwargs)
+        gui_module.train_model(**kwargs)
         toml_files = [f for f in os.listdir(tmpdir) if f.endswith(".toml")]
         assert len(toml_files) == 1, f"expected exactly one .toml, got {toml_files}"
         with open(os.path.join(tmpdir, toml_files[0]), encoding="utf-8") as f:
@@ -160,8 +157,7 @@ def run_train_model_and_load_saved_json(gui_module, kwargs: dict) -> dict:
             kwargs, output_dir=tmpdir, output_name="testout", print_only=False
         )
         mock_executor(gui_module)
-        with patch.object(gui_module, "get_executable_path", return_value="accelerate"):
-            gui_module.train_model(**kwargs)
+        gui_module.train_model(**kwargs)
         json_files = [f for f in os.listdir(tmpdir) if f.endswith(".json")]
         assert len(json_files) == 1, f"expected exactly one .json, got {json_files}"
         with open(os.path.join(tmpdir, json_files[0]), encoding="utf-8") as f:

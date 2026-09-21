@@ -20,8 +20,15 @@ Key features of this GUI include:
 
 Support for Linux and macOS is also available. While Linux support is actively maintained through community contributions, macOS compatibility may vary.
 
+## JamesWClark Windows Training Fork
+
+This branch combines the current upstream application with a qualified Windows runtime for an RTX 3090 Ti. Training tabs use the active Python interpreter for Accelerate, the Windows launcher does not mutate the environment at startup, and LoRA max-norm regularization avoids repeated GPU-to-CPU synchronization.
+
+See [docs/LOCAL_WINDOWS_REPRODUCTION.md](docs/LOCAL_WINDOWS_REPRODUCTION.md) for source revisions, installation, validation, and publication details.
+
 ## Table of Contents
 
+- [JamesWClark Windows Training Fork](#jameswclark-windows-training-fork)
 - [Installation Options](#installation-options)
   - [Local Installation Overview](#local-installation-overview)
     - [`uv` vs `pip` – What's the Difference?](#uv-vs-pip--whats-the-difference)

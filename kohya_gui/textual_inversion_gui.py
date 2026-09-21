@@ -2,6 +2,7 @@ import gradio as gr
 import json
 import math
 import os
+import sys
 import toml
 import time
 from datetime import datetime
@@ -9,7 +10,6 @@ from .common_gui import (
     check_if_model_exist,
     color_aug_changed,
     create_refresh_button,
-    get_executable_path,
     get_file_path,
     get_saveasfile_path,
     join_config_path,
@@ -724,12 +724,7 @@ def train_model(
     # calculated or logged here either.
     log.info(f"lr_warmup_steps = {lr_warmup_steps}")
 
-    accelerate_path = get_executable_path("accelerate")
-    if accelerate_path == "":
-        log.error("accelerate not found")
-        return TRAIN_BUTTON_VISIBLE
-
-    run_cmd = [rf"{accelerate_path}", "launch"]
+    run_cmd = [sys.executable, "-m", "accelerate.commands.launch"]
 
     run_cmd = AccelerateLaunch.run_cmd(
         run_cmd=run_cmd,

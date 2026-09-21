@@ -3,6 +3,6 @@
 
 torch==2.7.0+cu128
 torchvision==0.22.0+cu128
-xformers>=0.0.30
+xformers==0.0.30
 
 -r requirements_windows.txt

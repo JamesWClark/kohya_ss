@@ -8,6 +8,7 @@ those options are intentionally not exposed here.
 
 import json
 import os
+import sys
 import time
 import toml
 
@@ -26,7 +27,6 @@ from .common_gui import (
     check_if_model_exist,
     create_refresh_button,
     get_any_file_path,
-    get_executable_path,
     get_file_path,
     get_folder_path,
     get_saveasfile_path,
@@ -564,12 +564,7 @@ def train_model(
     ):
         return TRAIN_BUTTON_VISIBLE
 
-    accelerate_path = get_executable_path("accelerate")
-    if accelerate_path == "":
-        log.error("accelerate not found")
-        return TRAIN_BUTTON_VISIBLE
-
-    run_cmd = [rf"{accelerate_path}", "launch"]
+    run_cmd = [sys.executable, "-m", "accelerate.commands.launch"]
 
     run_cmd = AccelerateLaunch.run_cmd(
         run_cmd=run_cmd,
