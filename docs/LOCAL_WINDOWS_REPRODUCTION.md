@@ -65,11 +65,8 @@ For training qualification, use the same model, dataset, buckets, preset, seed, 
 
 ## Publishing the Submodule
 
-The optimized `sd-scripts` commit is currently local. Before publishing the root integration branch:
+The optimized `sd-scripts` commit is published at `JamesWClark/kohya-sd-scripts` on branch `integration/max-norm-upstream-2026-09-21`. The root repository records that fork in `.gitmodules` and pins commit `06c659c`.
 
-1. Create a `JamesWClark/sd-scripts` fork.
-2. Add that fork as a submodule remote and push `integration/max-norm-upstream-2026-09-21`.
-3. Update `.gitmodules` to the fork URL.
-4. Commit the root gitlink and verify a fresh recursive clone.
+After changing the submodule, publish its commit before updating and pushing the root gitlink. Verify every release with a fresh recursive clone.
 
-Do not publish a root gitlink until its `sd-scripts` commit is reachable from the configured submodule remote.
+The original upstream remains `https://github.com/kohya-ss/sd-scripts.git`; use it when fetching future upstream updates into the submodule fork.
