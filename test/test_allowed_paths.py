@@ -37,13 +37,11 @@ allowed_paths = ["{self.allowed_path}"]
 
     def test_allowed_paths_forwarded_to_launch(self):
         mock_ui_interface = MagicMock()
-        # Gradio 6: initialize_ui_interface returns (Blocks, shell_params).
-        shell_params = {"css": "", "head": "", "theme": MagicMock()}
         with (
             patch.object(
                 kohya_gui_launcher,
                 "initialize_ui_interface",
-                return_value=(mock_ui_interface, shell_params),
+                return_value=mock_ui_interface,
             ),
             patch.object(kohya_gui_launcher, "log", MagicMock(), create=True),
         ):
@@ -53,10 +51,9 @@ allowed_paths = ["{self.allowed_path}"]
         launch_kwargs = mock_ui_interface.launch.call_args.kwargs
         self.assertIn("allowed_paths", launch_kwargs)
         self.assertEqual(launch_kwargs["allowed_paths"], [self.allowed_path])
-        # Shell params (css/head/theme) must also reach launch() on Gradio 6.
-        self.assertIn("css", launch_kwargs)
-        self.assertIn("head", launch_kwargs)
-        self.assertIn("theme", launch_kwargs)
+        self.assertNotIn("css", launch_kwargs)
+        self.assertNotIn("head", launch_kwargs)
+        self.assertNotIn("theme", launch_kwargs)
 
 
 if __name__ == "__main__":
