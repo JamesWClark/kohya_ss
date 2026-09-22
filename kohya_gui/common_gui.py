@@ -1797,6 +1797,7 @@ def setup_environment():
     env["PYTHONPATH"] = (
         rf"{scriptdir}{os.pathsep}{scriptdir}/sd-scripts{os.pathsep}{env.get('PYTHONPATH', '')}"
     )
+    env["PYTHONIOENCODING"] = "utf-8"
     env["TF_ENABLE_ONEDNN_OPTS"] = "0"
     # Suppress TensorFlow C++ INFO (oneDNN notices) in training/caption subprocesses.
     env.setdefault("TF_CPP_MIN_LOG_LEVEL", "2")
